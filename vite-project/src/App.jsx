@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 function App() {
   const [openFaq, setOpenFaq] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Add smooth scroll handler
   const handleSmoothScroll = (e, targetId) => {
@@ -16,6 +17,7 @@ function App() {
         top: offsetPosition,
         behavior: "smooth"
       });
+      setIsMobileMenuOpen(false); // Close mobile menu after clicking
     }
   };
 
@@ -24,19 +26,18 @@ function App() {
       {/* Navigation - Enhanced */}
       <nav className="fixed w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex flex-col items-center justify-center space-y-4 md:space-y-0 md:flex-row md:justify-between">
+          <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center">
               <div className="relative group cursor-pointer" onClick={(e) => handleSmoothScroll(e, 'hero')}>
-                {/* <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-200"></div> */}
                 <div className="relative text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-200">
                   SchoolSync
                 </div>
               </div>
             </div>
 
-            {/* Center Navigation */}
-            <div className="flex items-center space-x-1">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-1">
               {[
                 { name: 'Features', href: 'features' },
                 { name: 'Benefits', href: 'benefits' },
@@ -55,27 +56,62 @@ function App() {
               ))}
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex items-center space-x-4">
+            {/* Desktop Action Buttons */}
+            <div className="hidden md:flex items-center space-x-4">
               <button className="px-6 py-2 text-blue-600 hover:text-blue-700 transition-colors duration-200">
                 Sign In
               </button>
               <button className="relative group">
-                {/* <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full blur opacity-50 group-hover:opacity-75 transition duration-200"></div> */}
                 <div className="relative px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all duration-200 group-hover:shadow-lg group-hover:-translate-y-0.5">
                   Book Demo
                 </div>
               </button>
             </div>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <button 
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-2 text-gray-600 hover:text-blue-600 transition-colors"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {isMobileMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  )}
+                </svg>
+              </button>
+            </div>
           </div>
 
-          {/* Mobile Menu Button - Add if needed */}
-          <div className="md:hidden absolute right-4 top-4">
-            <button className="p-2 text-gray-600 hover:text-blue-600 transition-colors">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
+          {/* Mobile Menu */}
+          <div className={`md:hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'max-h-96 opacity-100 mt-4' : 'max-h-0 opacity-0 overflow-hidden'}`}>
+            <div className="flex flex-col space-y-4 pb-4">
+              {[
+                { name: 'Features', href: 'features' },
+                { name: 'Benefits', href: 'benefits' },
+                { name: 'Testimonials', href: 'testimonials' },
+                { name: 'Contact', href: 'contact' }
+              ].map((item) => (
+                <a
+                  key={item.name}
+                  href={`#${item.href}`}
+                  onClick={(e) => handleSmoothScroll(e, item.href)}
+                  className="px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors duration-200"
+                >
+                  {item.name}
+                </a>
+              ))}
+              <div className="flex flex-col space-y-2 pt-2 border-t border-gray-100">
+                <button className="px-4 py-2 text-blue-600 hover:text-blue-700 transition-colors duration-200 text-left">
+                  Sign In
+                </button>
+                <button className="mx-4 px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all duration-200">
+                  Book Demo
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </nav>
@@ -90,47 +126,47 @@ function App() {
             {/* Main Content */}
             <div className="space-y-8">
               <div className="relative">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-gray-900">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-gray-900">
                   Transform How Your
                   <span className="block text-blue-600">
                     School Operates
                   </span>
                 </h1>
               </div>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
                 All-in-one School Management System to streamline admin, teachers, students, and parents under one roof.
               </p>
 
               {/* Buttons and Stats */}
               <div className="space-y-12">
-                <div className="flex space-x-6">
-                  <button className="bg-blue-600 text-white px-8 py-4 rounded-full hover:bg-blue-700 transition-all hover:shadow-lg text-lg font-medium">
+                <div className="flex flex-col sm:flex-row gap-4 sm:space-x-6">
+                  <button className="w-full sm:w-auto bg-blue-600 text-white px-8 py-4 rounded-full hover:bg-blue-700 transition-all hover:shadow-lg text-lg font-medium">
                     Book a Free Demo
                   </button>
-                  <button className="bg-white text-blue-600 px-8 py-4 rounded-full hover:bg-blue-50 transition-all border border-blue-100 text-lg font-medium">
+                  <button className="w-full sm:w-auto bg-white text-blue-600 px-8 py-4 rounded-full hover:bg-blue-50 transition-all border border-blue-100 text-lg font-medium">
                     Learn More
                   </button>
                 </div>
-                <div className="flex items-center space-x-16">
+                <div className="grid grid-cols-3 gap-4 sm:flex sm:items-center sm:space-x-16">
                   <div>
-                    <div className="text-4xl font-bold text-blue-600">500+</div>
-                    <div className="text-gray-600 font-medium">Schools</div>
+                    <div className="text-2xl sm:text-4xl font-bold text-blue-600">500+</div>
+                    <div className="text-sm sm:text-base text-gray-600 font-medium">Schools</div>
                   </div>
                   <div>
-                    <div className="text-4xl font-bold text-blue-600">50k+</div>
-                    <div className="text-gray-600 font-medium">Students</div>
+                    <div className="text-2xl sm:text-4xl font-bold text-blue-600">50k+</div>
+                    <div className="text-sm sm:text-base text-gray-600 font-medium">Students</div>
                   </div>
                   <div>
-                    <div className="text-4xl font-bold text-blue-600">99%</div>
-                    <div className="text-gray-600 font-medium">Satisfaction</div>
+                    <div className="text-2xl sm:text-4xl font-bold text-blue-600">99%</div>
+                    <div className="text-sm sm:text-base text-gray-600 font-medium">Satisfaction</div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Image */}
-            <div className="relative">
-              <div className="relative bg-white rounded-2xl shadow-lg p-6">
+            <div className="relative mt-8 lg:mt-0">
+              <div className="relative bg-white rounded-2xl shadow-lg p-4 sm:p-6">
                 <img 
                   src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
                   alt="School Management Dashboard"
@@ -143,17 +179,18 @@ function App() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-white scroll-mt-20">
+      <section id="features" className="py-12 sm:py-20 bg-white scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-20">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Everything you need to manage your school
             </h2>
-            <p className="text-gray-600">
+            <p className="text-sm sm:text-base text-gray-600">
               Comprehensive features designed to streamline every aspect of school management
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {/* Keep existing feature items but update their container classes */}
             {[
               {
                 title: "Student Information",
@@ -180,12 +217,12 @@ function App() {
                 description: "Seamless interaction between teachers, parents, and administration"
               }
             ].map((feature, index) => (
-              <div key={index} className="group p-8 rounded-2xl bg-gradient-to-b from-white to-blue-50 border border-blue-100 hover:shadow-xl transition-all hover:-translate-y-1">
+              <div key={index} className="group p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-white to-blue-50 border border-blue-100 hover:shadow-xl transition-all hover:-translate-y-1">
                 <div className="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600/20 transition-colors">
                   <div className="w-6 h-6 bg-blue-600 rounded-lg"></div>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
+                <p className="text-sm sm:text-base text-gray-600">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -193,23 +230,20 @@ function App() {
       </section>
 
       {/* Benefits Section */}
-      <section id="benefits" className="py-20 bg-gradient-to-b from-blue-50 to-white scroll-mt-20 relative overflow-hidden">
-        {/* Decorative Elements */}
-        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-blue-100 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
-        <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-blue-200 rounded-full filter blur-3xl opacity-20 animate-pulse delay-300"></div>
-        
+      <section id="benefits" className="py-12 sm:py-20 bg-gradient-to-b from-blue-50 to-white scroll-mt-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-20">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Why Schools Choose
               <span className="text-blue-600"> SchoolSync</span>
             </h2>
-            <p className="text-gray-600">
+            <p className="text-sm sm:text-base text-gray-600">
               Experience the advantages that make SchoolSync the preferred choice for educational institutions
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {/* Keep existing benefits items but update their container classes */}
             {[
               {
                 icon: (
@@ -274,30 +308,30 @@ function App() {
             ].map((benefit, index) => (
               <div 
                 key={index}
-                className="group relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                className="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-blue-100/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 
                 <div className="relative">
-                  <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-12 sm:w-14 h-12 sm:h-14 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6 group-hover:scale-110 transition-transform duration-300">
                     {benefit.icon}
                   </div>
                   
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3">
                     {benefit.title}
                   </h3>
                   
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-sm sm:text-base text-gray-600 mb-4">
                     {benefit.description}
                   </p>
                   
                   <ul className="space-y-2">
                     {benefit.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-gray-600">
-                        <svg className="w-4 h-4 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <li key={featureIndex} className="flex items-center text-sm sm:text-base text-gray-600">
+                        <svg className="w-4 h-4 text-blue-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
-                        {feature}
+                        <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -418,53 +452,46 @@ function App() {
       </section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="py-20 bg-gradient-to-b from-white to-blue-50 scroll-mt-20 relative overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 right-0 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
-          <div className="absolute bottom-0 left-0 w-72 h-72 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
-          <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-pink-100 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
-        </div>
-
+      <section id="testimonials" className="py-12 sm:py-20 bg-gradient-to-b from-white to-blue-50 scroll-mt-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <span className="text-blue-600 font-semibold mb-2 block">TESTIMONIALS</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-20">
+            <span className="text-blue-600 font-semibold mb-2 block text-sm sm:text-base">TESTIMONIALS</span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
               Trusted by Leading
               <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent"> Educators</span>
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-600">
               Discover why school leaders choose SchoolSync for their institutions
             </p>
           </div>
 
           {/* Featured Testimonial */}
-          <div className="mb-20">
-            <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+          <div className="mb-12 sm:mb-20">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-12 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
               <div className="flex flex-col md:flex-row gap-8 items-center">
-                <div className="md:w-1/3">
+                <div className="w-full md:w-1/3">
                   <div className="relative">
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl transform rotate-6 scale-105 opacity-20"></div>
                     <img 
                       src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
                       alt="Dr. James Wilson"
-                      className="relative rounded-2xl w-full h-72 object-cover"
+                      className="relative rounded-2xl w-full h-48 sm:h-72 object-cover"
                     />
                   </div>
                 </div>
-                <div className="md:w-2/3 space-y-6">
+                <div className="md:w-2/3 space-y-4 sm:space-y-6">
                   <div className="flex items-center space-x-2 mb-4">
                     {[...Array(5)].map((_, i) => (
-                      <svg key={i} className="w-6 h-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                      <svg key={i} className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
                     ))}
                   </div>
-                  <blockquote className="text-2xl font-medium text-gray-900 italic">
+                  <blockquote className="text-lg sm:text-xl md:text-2xl font-medium text-gray-900 italic">
                     "SchoolSync has completely transformed how we manage our institution. The efficiency gains are remarkable, and our staff couldn't be happier with the streamlined processes."
                   </blockquote>
                   <div>
-                    <p className="text-xl font-semibold text-gray-900">Dr. James Wilson</p>
+                    <p className="text-lg sm:text-xl font-semibold text-gray-900">Dr. James Wilson</p>
                     <p className="text-blue-600">Principal, International Academy</p>
                   </div>
                 </div>
@@ -473,7 +500,7 @@ function App() {
           </div>
 
           {/* Testimonial Grid */}
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {[
               {
                 quote: "The parent-teacher communication feature has brought our school community closer than ever before. We've seen a 90% increase in parent engagement.",
@@ -504,7 +531,7 @@ function App() {
                 key={index} 
                 className="group relative perspective-1000"
               >
-                <div className="relative bg-white rounded-2xl p-8 shadow-lg transition-all duration-500 transform group-hover:scale-[1.02] group-hover:-translate-y-1">
+                <div className="relative bg-white rounded-2xl p-6 sm:p-8 shadow-lg transition-all duration-500 transform group-hover:scale-[1.02] group-hover:-translate-y-1">
                   <div className="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl"
                        style={{ backgroundImage: `linear-gradient(to right, ${testimonial.color.split(' ')[1]}, ${testimonial.color.split(' ')[3]})` }}>
                   </div>
