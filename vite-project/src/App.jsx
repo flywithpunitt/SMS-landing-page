@@ -117,29 +117,29 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section id="hero" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative">
+      <section id="hero" className="pt-24 md:pt-32 pb-12 md:pb-20 px-4 sm:px-6 lg:px-8 relative">
         {/* Subtle background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
 
         <div className="max-w-7xl mx-auto relative">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Main Content */}
-            <div className="space-y-8">
+            <div className="space-y-6 md:space-y-8 text-center lg:text-left">
               <div className="relative">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-gray-900">
+                <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-gray-900">
                   Transform How Your
-                  <span className="block text-blue-600">
+                  <span className="block text-blue-600 mt-2">
                     School Operates
                   </span>
                 </h1>
               </div>
-              <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+              <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0">
                 All-in-one School Management System to streamline admin, teachers, students, and parents under one roof.
               </p>
 
               {/* Buttons and Stats */}
-              <div className="space-y-12">
-                <div className="flex flex-col sm:flex-row gap-4 sm:space-x-6">
+              <div className="space-y-8 md:space-y-12">
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start">
                   <button className="w-full sm:w-auto bg-blue-600 text-white px-8 py-4 rounded-full hover:bg-blue-700 transition-all hover:shadow-lg text-lg font-medium">
                     Book a Free Demo
                   </button>
@@ -147,26 +147,26 @@ function App() {
                     Learn More
                   </button>
                 </div>
-                <div className="grid grid-cols-3 gap-4 sm:flex sm:items-center sm:space-x-16">
-                  <div>
-                    <div className="text-2xl sm:text-4xl font-bold text-blue-600">500+</div>
-                    <div className="text-sm sm:text-base text-gray-600 font-medium">Schools</div>
+                <div className="grid grid-cols-3 gap-4 sm:gap-8 md:gap-16 justify-items-center lg:justify-items-start">
+                  <div className="text-center lg:text-left">
+                    <div className="text-3xl sm:text-4xl font-bold text-blue-600">500+</div>
+                    <div className="text-sm sm:text-base text-gray-600 font-medium mt-1">Schools</div>
                   </div>
-                  <div>
-                    <div className="text-2xl sm:text-4xl font-bold text-blue-600">50k+</div>
-                    <div className="text-sm sm:text-base text-gray-600 font-medium">Students</div>
+                  <div className="text-center lg:text-left">
+                    <div className="text-3xl sm:text-4xl font-bold text-blue-600">50k+</div>
+                    <div className="text-sm sm:text-base text-gray-600 font-medium mt-1">Students</div>
                   </div>
-                  <div>
-                    <div className="text-2xl sm:text-4xl font-bold text-blue-600">99%</div>
-                    <div className="text-sm sm:text-base text-gray-600 font-medium">Satisfaction</div>
+                  <div className="text-center lg:text-left">
+                    <div className="text-3xl sm:text-4xl font-bold text-blue-600">99%</div>
+                    <div className="text-sm sm:text-base text-gray-600 font-medium mt-1">Satisfaction</div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Image */}
-            <div className="relative mt-8 lg:mt-0">
-              <div className="relative bg-white rounded-2xl shadow-lg p-4 sm:p-6">
+            <div className="relative w-full max-w-lg mx-auto lg:max-w-none">
+              <div className="relative bg-white rounded-2xl shadow-lg p-2 sm:p-4">
                 <img 
                   src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
                   alt="School Management Dashboard"
